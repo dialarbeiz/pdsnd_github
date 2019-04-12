@@ -3,7 +3,7 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
+CITY_INFO = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
@@ -21,7 +21,7 @@ def get_filters():
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True:
         city = input('Which city (chicago, new york city, washington) would you like to analyze? ').lower()
-        if city in CITY_DATA:
+        if city in CITY_INFO:
             break;
    
     # TO DO: get user input for month (all, january, february, ... , june)
@@ -34,7 +34,7 @@ def get_filters():
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     while True:
-        day = input('Which day (or "all" to apply no day filter) would you like to filter by? ').lower()
+        day = input('Which day of the week(or "all" for no day filter) would you like to filter by? ').lower()
         if day in days:
             break;
 
@@ -55,7 +55,7 @@ def load_data(city, month, day):
         df - Pandas DataFrame containing city data filtered by month and day
     """
     # load data file into a dataframe
-    df = pd.read_csv(CITY_DATA[city])
+    df = pd.read_csv(CITY_INFO[city])
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
@@ -89,15 +89,15 @@ def time_stats(df):
 
     # TO DO: display the most common month
     common_month = df['Start Time'].dt.month.mode()[0]
-    print('The most common month is: {}'.format(calendar.month_name[common_month]))
+    print('The most common month for bikeshare is: {}'.format(calendar.month_name[common_month]))
 
     # TO DO: display the most common day of week
     common_day = df['Start Time'].dt.weekday_name.mode()[0]
-    print('The most common day is: {}'.format(common_day))
+    print('The most common day for bikeshare is: {}'.format(common_day))
 
     # TO DO: display the most common start hour
     common_start_hour = df['Start Time'].dt.hour.mode()[0]
-    print('The most common start hour is: {}'.format(common_start_hour))
+    print('The most common start hour for bikeshare is: {}'.format(common_start_hour))
     
     print("\nThis took %s seconds." % (time.time() - start_time))
     
